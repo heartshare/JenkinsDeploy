@@ -1,6 +1,5 @@
-Jenkinsfile (Declarative Pipeline)
-pipeline {
-    agent { docker 'maven:3.3.3' }
+node {
+    agent { label 'slave_001' }
     stages {
         stage('build') {
             steps {
