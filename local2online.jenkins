@@ -1,0 +1,51 @@
+pipeline {
+    agent none
+    stages {
+    	 stage('git_pull') {
+    	 	agent {label 'local_53'}
+    	 	steps {
+	          sh '/var/lib/jenkins/git_path/.jenkinfile/energy_platform/git_pull.sh'
+    	 	}
+	    }
+	    stage('choose_pack_move') {
+    	 	agent {label 'local_53'}
+    	 	input {
+	          message "请填写更新到最新哪个版本"
+	          ok "确定"
+	          parameters {
+	            string(defaultValue: 'lastest', description: '默认版本更新到最新', name: 'choose_version')
+	          }
+	        }
+    	 	steps {
+	            echo "你选择的版本, ${choose_version}"
+	            echo "开始打包,打包一个升级包，一个回滚包,当scp成功时，同时更新最新包版本号，"
+	            sh "/var/lib/jenkins/git_path/.jenkinfile/energy_platform/pack_online.sh ${choose_version}"
+	            echo "开始scp文件到线上服务器"
+	            sh "/var/lib/jenkins/git_path/.jenkinfile/energy_platform/move_online.sh"
+    	 	}
+	    }
+	    stage('update') {
+    	 	agent {label 'xwhl_web'}
+    	 	steps {
+	            echo "解压包,覆盖网站文件"
+	            sh "/root/.jenkins/scp_file/.jenkinfile/update.sh"
+    	 	}
+	    }
+    }
+    post {
+    	success {
+    		node('local_53'){
+    			sh "/var/lib/jenkins/git_path/.jenkinfile/energy_platform/cleanup_online.sh"
+    			deleteDir()
+    		}
+    		node('xwhl_web'){
+    			sh "/root/.jenkins/scp_file/.jenkinfile/cleanup.sh"
+    			deleteDir()
+    		}
+    		echo '升级成功！'
+    	}
+    	failure {
+    		echo "升级失败..."
+    	}
+    }
+}

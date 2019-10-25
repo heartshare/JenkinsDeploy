@@ -1,0 +1,38 @@
+pipeline {
+    agent none
+    stages {
+	    stage('rollback') {
+	    	agent {label 'xwhl_web'}
+	     	steps {
+		          sh "/root/.jenkins/scp_file/.jenkinfile/rollback.sh"
+	     	}
+		}
+		stage('cp_online_version') {
+	    	agent {label 'local_53'}
+	     	steps {
+		          sh "/var/lib/jenkins/git_path/.jenkinfile/energy_platform/rollback_online.sh"
+	     	}
+		}
+    }
+    post {
+    	success {
+    		node('local_53'){
+    			echo "更新本地线上服务器版本号:"
+    			sh "cat /var/lib/jenkins/git_path/.energy_emit_log/old_version"
+    			sh "mv -f /var/lib/jenkins/git_path/.energy_emit_log/old_version /var/lib/jenkins/git_path/.energy_emit_log/online_version"
+    			deleteDir()
+    		}
+    		node('xwhl_web'){
+    			echo "更新线上服务器版本号:"
+    			sh "cat /root/.jenkins/scp_file/old_version"
+    			echo "删除解压回滚包"
+    			sh "cp -f /root/.jenkins/scp_file/old_version /root/.jenkins/scp_file/online_version && rm -fr /root/.jenkins/scp_file/old_back"
+    			deleteDir()
+    		}
+    		echo '回滚成功！'
+    	}
+    	failure {
+    		echo "回滚失败..."
+    	}
+    }
+}   
