@@ -7,10 +7,10 @@ jenkins 本地环境代码 自动部署到 测试环境,线上环境
 
 ### 1.所有环境安装好zip,git,并且配置好git 免密码模式。请参照 [https://blog.csdn.net/song3304/article/details/102754832](https://blog.csdn.net/song3304/article/details/102754832)
 
-### 2.先安装好jenkis，配置好 测评服务器node,线上服务器node 请参照[https://blog.csdn.net/song3304/article/details/102754940](https://blog.csdn.net/song3304/article/details/102754940)
+### 2.先安装好jenkis，配置好 测试服务器node,线上服务器node 请参照[https://blog.csdn.net/song3304/article/details/102754940](https://blog.csdn.net/song3304/article/details/102754940)
 
 ### 3.目录结构 local:本地机器，也是jenkins主机
--  test:测评服务(实际代码目录:/home/ubuntu/energy)
+-  test:测试服务(实际代码目录:/home/ubuntu/energy)
 -  online:线上主机(实际代码目录:/home/www/xiwanghulian)  
 -  如果机器没有相关目录，请自行mkdir -p ...  
 
