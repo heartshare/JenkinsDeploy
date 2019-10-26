@@ -5,11 +5,11 @@ jenkins 本地环境代码 自动部署到 测试环境,线上环境
 -  可以回滚一个版本
 -  可以配置deny_file,可忽略文件列表，自动部署用过滤这些文件
 
-### 1.本地测试环境安装好zip,git,并且配置好git 免密码模式。请参照
+### 1.所有环境安装好zip,git,并且配置好git 免密码模式。请参照 [https://blog.csdn.net/song3304/article/details/102754832](https://blog.csdn.net/song3304/article/details/102754832)
 
-### 2.请先安装好jenkis,请参照
+### 2.请先安装好jenkis,请参照 [https://jenkins.io/zh/doc/book/installing/](https://jenkins.io/zh/doc/book/installing/)
 
-### 3.配置好 测评服务器node,线上服务器node 请参照
+### 3.配置好 测评服务器node,线上服务器node 请参照[https://blog.csdn.net/song3304/article/details/102754940](https://blog.csdn.net/song3304/article/details/102754940)
 
 ### 4.目录结构 local:本地机器，也是jenkins主机
 -  test:测评服务(实际代码目录:/home/ubuntu/energy)
@@ -18,7 +18,8 @@ jenkins 本地环境代码 自动部署到 测试环境,线上环境
 
 ### 5.所有的sh文件，都必须chmod +x ..
 
-### 6.所有主机ssh免登录设置，请参照
+### 6.所有主机ssh免登录设置，请参照 [https://blog.csdn.net/song3304/article/details/102755182](https://blog.csdn.net/song3304/article/details/102755182)
+
 
 ### 7.四个pipeline script文件功能介绍:
 - local2test.jenkins   	本地更新到测试环境
