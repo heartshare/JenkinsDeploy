@@ -27,5 +27,5 @@ set +x
 
 echo "移动文件到网站根目录覆盖文件"
 set -x
-cp -rf ./old_back/* /home/ubuntu/energy/
+cp -rf ./old_back/* /home/www #测试环境项目对应目录
 set +x

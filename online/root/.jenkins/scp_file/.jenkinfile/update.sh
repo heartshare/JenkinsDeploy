@@ -16,7 +16,7 @@ else
 	echo '修改文件所属用户组'
 	set -x
 	chown -R www-data:www-data ./update_online
-	cd /home/www/xiwanghulian
+	cd /home/www/  #线上项目对应目录
 	set +x
 
 	echo "删除旧文件，同时备份要更新文件,方便回滚"

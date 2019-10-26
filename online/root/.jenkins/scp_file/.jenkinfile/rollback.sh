@@ -27,5 +27,5 @@ set +x
 
 echo "移动文件到网站根目录覆盖文件"
 set -x
-cp -rf ./old_back/* /home/www/xiwanghulian/
+cp -rf ./old_back/* /home/www/ #线上项目对应目录
 set +x
